@@ -1,0 +1,25 @@
+{
+  "name": "mobx-crud-example",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Mobx crud app for managing contacts",
+  "author": "Michael Wanyoike",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:brandiqa/mobx-crud-example.git"
+  },
+  "dependencies": {
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  },
+  "devDependencies": {
+    "custom-react-scripts": "0.0.23"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
