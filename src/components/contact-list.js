@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import { Message, Card } from 'semantic-ui-react';
+import { observer } from 'mobx-react';
 import ContactCard from './contact-card';
 
+@observer
 class ContactList extends Component {
 
+  componentDidMount() {
+    this.props.store.fetchContacts()
+  }
+
   createContactCards() {
-    return this.props.contacts.map((contact) => {
+    return this.props.store.contacts.map((contact) => {
       return (
         <ContactCard key={contact._id} contact={contact} deleteContact={this.props.deleteContact}/>
       )
@@ -28,7 +34,7 @@ class ContactList extends Component {
 
     return (
       <div>
-        { this.props.contacts.length === 0 ? errorMessage : contactCards }
+        { this.props.store.contacts.length === 0 ? errorMessage : contactCards }
       </div>
     )
   }

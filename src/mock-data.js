@@ -1,4 +1,4 @@
-export const contacts = [
+export const mockContacts = [
   {
     _id: "1",
     name: {
