@@ -1331,7 +1331,7 @@ clap@^1.0.9:
   dependencies:
     chalk "^1.1.3"
 
-classnames@^2.1.5:
+classnames@^2.1.5, classnames@^2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
 
@@ -3924,6 +3924,12 @@ mobx-react-devtools@^4.2.11:
   version "4.2.11"
   resolved "https://registry.yarnpkg.com/mobx-react-devtools/-/mobx-react-devtools-4.2.11.tgz#18d89a32b7d28b48228d12ccde73cf733aacc395"
 
+mobx-react-form@^1.23.2:
+  version "1.23.2"
+  resolved "https://registry.yarnpkg.com/mobx-react-form/-/mobx-react-form-1.23.2.tgz#43f3a95feda6110e431fa92c49be2c2b3c9c5975"
+  dependencies:
+    lodash "^4.16.2"
+
 mobx-react@^4.1.5:
   version "4.1.5"
   resolved "https://registry.yarnpkg.com/mobx-react/-/mobx-react-4.1.5.tgz#75cf4dbffc91b9cb23d56c060dfd8d2ca52450dc"
@@ -5803,6 +5809,10 @@ validate-npm-package-license@^3.0.1:
   dependencies:
     spdx-correct "~1.0.0"
     spdx-expression-parse "~1.0.0"
+
+validatorjs@^3.11.0:
+  version "3.11.0"
+  resolved "https://registry.yarnpkg.com/validatorjs/-/validatorjs-3.11.0.tgz#d8177e62e663e4e06a6517540dfe1beabba2dfe5"
 
 value-equal@^0.2.0:
   version "0.2.0"
