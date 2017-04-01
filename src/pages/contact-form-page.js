@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Grid} from 'semantic-ui-react';
 import ContactForm from '../components/contact-form';
-import form from '../containers/contact-form';
+import form from '../forms/contact';
 
 class ContactFormPage extends Component {
   render() {
