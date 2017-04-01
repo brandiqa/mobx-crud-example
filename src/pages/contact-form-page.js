@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 import { Grid} from 'semantic-ui-react';
 import validatorjs from 'validatorjs';
-const plugins = { dvr: validatorjs };
 import MobxReactFormDevTools from 'mobx-react-form-devtools';
 import ContactForm from '../components/contact-form';
 import Form, {fields} from '../forms/contact';
 import store from '../stores/contact-store';
-
 
 class ContactFormPage extends Component {
 
   form = null;
 
   componentWillMount() {
+    const plugins = { dvr: validatorjs };
     this.form = new Form({fields},{plugins});
     MobxReactFormDevTools.register({
       contactForm: this.form
