@@ -1,6 +1,4 @@
 import MobxReactForm from 'mobx-react-form';
-import validatorjs from 'validatorjs';
-const plugins = { dvr: validatorjs };
 import store from '../stores/contact-store';
 
 
@@ -46,4 +44,4 @@ class ContactForm extends MobxReactForm {
   }
 }
 
-export default new ContactForm({fields},{plugins});
+export default ContactForm;

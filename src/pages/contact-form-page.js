@@ -1,17 +1,25 @@
 import React, { Component } from 'react';
 import { Grid} from 'semantic-ui-react';
-import ContactForm from '../components/contact-form';
-import store from '../stores/contact-store'
-import form from '../forms/contact';
+import validatorjs from 'validatorjs';
+const plugins = { dvr: validatorjs };
 import MobxReactFormDevTools from 'mobx-react-form-devtools';
+import ContactForm from '../components/contact-form';
+import Form, {fields} from '../forms/contact';
+import store from '../stores/contact-store';
 
-MobxReactFormDevTools.register({
-  form
-});
-
-MobxReactFormDevTools.select('form');
 
 class ContactFormPage extends Component {
+
+  form = null;
+
+  componentWillMount() {
+    this.form = new Form({fields},{plugins});
+    MobxReactFormDevTools.register({
+      contactForm: this.form
+    });
+    MobxReactFormDevTools.select('contactForm');
+  }
+
   render() {
     return (
       <div>
@@ -19,7 +27,7 @@ class ContactFormPage extends Component {
         <Grid centered columns={2}>
           <Grid.Column>
             <h1 style={{marginTop:"1em"}}>Add New Contact</h1>
-            <ContactForm form={form} store={store}/>
+            <ContactForm form={this.form} store={store}/>
           </Grid.Column>
         </Grid>
       </div>

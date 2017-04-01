@@ -7,11 +7,6 @@ import InputField from './input-field';
 @observer
 class ContactForm  extends React.Component {
 
-  componentWillUnmount() {
-    this.props.form.clear()
-    this.props.form.reset()
-  }
-
   render() {
     const { form } = this.props;
     const { redirect, loading } = this.props.store
@@ -23,7 +18,7 @@ class ContactForm  extends React.Component {
         </Form.Group>
         <InputField field={form.$('phone')} />
         <InputField field={form.$('email')} />
-        <Button primary type='submit' onClick={form.onSubmit}>Save</Button>
+        <Button primary type='submit' onClick={form.onSubmit} disabled={form.isPristine}>Save</Button>
         <p>{form.error}</p>
       </Form>
     )
