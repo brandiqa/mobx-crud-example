@@ -14,9 +14,9 @@ class ContactForm  extends React.Component {
 
   render() {
     const { form } = this.props;
-    const { redirect } = this.props.store
+    const { redirect, loading } = this.props.store
     const formComponent = (
-      <Form onSubmit={form.onSubmit}>
+      <Form onSubmit={form.onSubmit} loading={loading}>
         <Form.Group widths='equal'>
           <InputField field={form.$('name.first')} />
           <InputField field={form.$('name.last')} />
