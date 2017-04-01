@@ -1,6 +1,7 @@
 import MobxReactForm from 'mobx-react-form';
 import validatorjs from 'validatorjs';
 const plugins = { dvr: validatorjs };
+import store from '../stores/contact-store';
 
 export const fields = {
   name:{
@@ -35,7 +36,7 @@ export const fields = {
 
 class ContactForm extends MobxReactForm {
   onSuccess(form) {
-    console.log('form is valid', form.values());
+    store.saveContact(form.values())
   }
 
   onError(form) {

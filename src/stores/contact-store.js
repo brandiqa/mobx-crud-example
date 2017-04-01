@@ -9,20 +9,39 @@ class ContactStore {
   @observable contacts = [];
   @observable fetching = false;
   @observable error = false;
+  @observable loading = false;
+  @observable redirect=true;
 
   @action
   fetchContacts = () => {
     this.fetching = true;
     this.contactService.find({})
       .then(response =>  {
-        _.each(response.data, (contact => this.contacts.push(contact)));
+        this.contacts = response.data;
         this.error = false;
         this.fetching = false;
+        this.redirect = false;
       })
       .catch(err => {
         this.error = true;
         this.fetching = false;
-        console.log(err)
+        console.log("fetchContacts err:", err)
+      })
+  }
+
+  saveContact = (contact) => {
+    this.loading = true;
+    this.contactService.create(contact)
+      .then(response => {
+        this.contacts.push(response)
+        this.loading = false;
+        this.redirect = true;
+      })
+      .catch(err => {
+        this.error = true;
+        this.loading = false;
+        this.redirect = false;
+        console.log("saveContact err", err)
       })
   }
 }
