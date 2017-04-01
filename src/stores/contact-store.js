@@ -1,6 +1,5 @@
 import { observable, action } from 'mobx';
 import { service } from '../client';
-import _ from 'lodash';
 
 class ContactStore {
 
@@ -29,6 +28,7 @@ class ContactStore {
       })
   }
 
+  @action
   saveContact = (contact) => {
     this.loading = true;
     this.contactService.create(contact)

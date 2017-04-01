@@ -7,6 +7,11 @@ import InputField from './input-field';
 @observer
 class ContactForm  extends React.Component {
 
+  componentWillUnmount() {
+    this.props.form.clear()
+    this.props.form.reset()
+  }
+
   render() {
     const { form } = this.props;
     const { redirect } = this.props.store

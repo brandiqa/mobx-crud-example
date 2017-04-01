@@ -31,7 +31,7 @@ export const fields = {
     name: 'email',
     label: 'Email',
     placeholder: 'Enter email address',
-    rules: 'required|email|string'
+    rules: 'required|string|email'
   }
 };
 
@@ -39,7 +39,6 @@ class ContactForm extends MobxReactForm {
 
   onSuccess(form) {
     store.saveContact(form.values());
-    form.reset();
   }
 
   onError(form) {
