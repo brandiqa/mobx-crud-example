@@ -10,7 +10,7 @@ class ContactStore {
   @observable fetching = false;
   @observable error = false;
   @observable loading = false;
-  @observable redirect=true;
+  @observable redirect=false;
 
   @action
   fetchContacts = () => {
