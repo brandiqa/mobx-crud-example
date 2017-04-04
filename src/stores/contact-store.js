@@ -1,6 +1,16 @@
 import { observable, action } from 'mobx';
 import { service } from '../client';
 
+const normalizeNestedErrors = (data) => {
+  const { "name.first":first, "name.last":last, phone, email } = data;
+  return {
+    first: first ? first.message: '',
+    last: last ? last.message : '',
+    phone: phone ? phone.message : '',
+    email: email ? email.message : ''
+  }
+}
+
 class ContactStore {
 
   contactService = service('contacts')
@@ -10,6 +20,7 @@ class ContactStore {
   @observable error = false;
   @observable loading = false;
   @observable redirect=false;
+  @observable errors = {};
 
   @action
   fetchContacts = () => {
@@ -36,12 +47,16 @@ class ContactStore {
         this.contacts.push(response)
         this.loading = false;
         this.redirect = true;
+        this.errors = {};
       })
       .catch(err => {
+        const json = JSON.stringify(err);
+        const feathersErrors = JSON.parse(json).errors;
+        const errors = Object.assign({}, normalizeNestedErrors(feathersErrors));
+        this.errors = errors;
         this.error = true;
         this.loading = false;
         this.redirect = false;
-        console.log("saveContact err", err)
       })
   }
 }

@@ -9,17 +9,16 @@ class ContactForm  extends React.Component {
 
   render() {
     const { form } = this.props;
-    const { redirect, loading } = this.props.store
+    const { redirect, loading, errors } = this.props.store
     const formComponent = (
       <Form onSubmit={form.onSubmit} loading={loading}>
         <Form.Group widths='equal'>
-          <InputField field={form.$('name.first')} />
-          <InputField field={form.$('name.last')} />
+          <InputField field={form.$('name.first')} error={errors.first} />
+          <InputField field={form.$('name.last')} error={errors.last}/>
         </Form.Group>
-        <InputField field={form.$('phone')} />
-        <InputField field={form.$('email')} />
+        <InputField field={form.$('phone')} error={errors.phone} />
+        <InputField field={form.$('email')} error={errors.email} />
         <Button primary type='submit' onClick={form.onSubmit} disabled={form.isPristine}>Save</Button>
-        <p>{form.error}</p>
       </Form>
     )
 
