@@ -71,7 +71,7 @@ class ContactForm extends React.Component {
 
   render() {
     const form = this.form;
-    const { redirect, loading, errors } = store;
+    const { redirect, loading, errors, contact } = store;
 
     const formComponent = (
       <Form onSubmit={form.onSubmit} loading={loading}>
@@ -90,7 +90,7 @@ class ContactForm extends React.Component {
         <MobxReactFormDevTools.UI />
         <Grid centered columns={2}>
           <Grid.Column>
-            <h1 style={{marginTop:"1em"}}>Add New Contact</h1>
+            <h1 style={{marginTop:"1em"}}>{ contact._id ? 'Edit Contact' : 'Add New Contact' }</h1>
             {formComponent}
           </Grid.Column>
         </Grid>
