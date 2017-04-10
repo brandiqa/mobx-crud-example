@@ -98,6 +98,16 @@ class ContactStore {
         this.redirect = false;
       })
   }
+
+  deleteContact = (_id) => {
+    this.contactService.remove(_id)
+      .then(response => {
+        this.contacts = this.contacts.filter(item => item._id !== _id)
+      })
+      .catch(err => {
+        this.errors = {global: "Something went wrong"}
+      })
+  }
 }
 
 export default new ContactStore()

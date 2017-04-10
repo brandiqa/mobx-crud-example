@@ -14,12 +14,12 @@ class ContactList extends Component {
 
   render() {
 
-    const { contacts, loading, errors } = this.props.store;
+    const { contacts, loading, errors, deleteContact } = this.props.store;
 
     const cards = () => {
       return contacts.map((contact) => {
         return (
-          <ContactCard key={contact._id} contact={contact} deleteContact={this.props.deleteContact}/>
+          <ContactCard key={contact._id} contact={contact} deleteContact={deleteContact}/>
         )
       });
     }
