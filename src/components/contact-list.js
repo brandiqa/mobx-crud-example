@@ -10,21 +10,24 @@ class ContactList extends Component {
     this.props.store.fetchContacts()
   }
 
-  createContactCards() {
-    return this.props.store.contacts.map((contact) => {
-      return (
-        <ContactCard key={contact._id} contact={contact} deleteContact={this.props.deleteContact}/>
-      )
-    });
-  }
 
   render() {
+
+    const { contacts, loading, errors } = this.props.store;
+
+    const cards = () => {
+      return contacts.map((contact) => {
+        return (
+          <ContactCard key={contact._id} contact={contact} deleteContact={this.props.deleteContact}/>
+        )
+      });
+    }
 
     const fetchingMessage = (
       <Message icon info>
         <Icon name='circle notched' loading />
         <Message.Content>
-           <Message.Header>Just one second</Message.Header>
+           <Message.Header>Just one moment</Message.Header>
            We are fetching that content for you.
        </Message.Content>
       </Message>
@@ -45,23 +48,22 @@ class ContactList extends Component {
         <Icon name='wait' />
         <Message.Content>
            <Message.Header>Server Timeout</Message.Header>
-           Start the backend server then refresh this page
+           {errors.global}
        </Message.Content>
       </Message>
     )
 
     const contactCards = (
       <Card.Group>
-        {this.createContactCards()}
+        {cards()}
       </Card.Group>
     )
-    const { fetching, error, contacts } = this.props.store;
 
     return (
       <div>
-        { fetching && fetchingMessage }
-        { contacts.length === 0 && !fetching  && !error && emptyMessage }
-        { error && timeoutMessage }
+        { loading && fetchingMessage }
+        { contacts.length === 0 && !loading  && !errors.global && emptyMessage }
+        { errors.global && timeoutMessage }
         { contacts.length > 0 && contactCards }
       </div>
     )
