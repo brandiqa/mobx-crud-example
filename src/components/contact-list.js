@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Message, Icon, Card } from 'semantic-ui-react';
 import { observer } from 'mobx-react';
+import { Link } from 'react-router-dom';
 import ContactCard from './contact-card';
 
 @observer
@@ -34,11 +35,12 @@ class ContactList extends Component {
     )
 
     const emptyMessage = (
-      <Message icon warning>
+      <Message icon info>
         <Icon name='warning circle' />
         <Message.Content>
            <Message.Header>No Contacts Found</Message.Header>
-           Add some new contacts to get started.
+           <span>Add some new contacts to get started..</span>
+          <Link to={'/contacts/new'} className="ui button primary right floated">Add New Contact</Link>
        </Message.Content>
       </Message>
     )

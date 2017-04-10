@@ -5,7 +5,9 @@ import MobxReactFormDevTools from 'mobx-react-form-devtools';
 import ContactForm from '../components/contact-form';
 import Form, {fields} from '../forms/contact';
 import store from '../stores/contact-store';
+import { observer } from 'mobx-react';
 
+@observer
 class ContactFormPage extends Component {
 
   form = null;
@@ -19,6 +21,15 @@ class ContactFormPage extends Component {
     MobxReactFormDevTools.select('contactForm');
   }
 
+  componentDidMount() {
+    const { _id } = this.props.match.params;
+    if(_id){
+      store.fetchContact(_id)
+    } else {
+      store.newContact();
+    }
+  }
+
   render() {
     return (
       <div>
@@ -26,7 +37,7 @@ class ContactFormPage extends Component {
         <Grid centered columns={2}>
           <Grid.Column>
             <h1 style={{marginTop:"1em"}}>Add New Contact</h1>
-            <ContactForm form={this.form} store={store}/>
+            <ContactForm form={this.form} store={store} contact={store.contact}/>
           </Grid.Column>
         </Grid>
       </div>

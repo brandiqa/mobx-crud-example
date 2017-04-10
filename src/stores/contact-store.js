@@ -16,6 +16,7 @@ class ContactStore {
   contactService = service('contacts')
 
   @observable contacts = [];
+  @observable contact = {name:{}};
   @observable loading = false;
   @observable redirect=false;
   @observable errors = {};
@@ -51,7 +52,48 @@ class ContactStore {
         const feathersErrors = JSON.parse(json).errors;
         const errors = Object.assign({}, decodeFeathersErrors(feathersErrors));
         this.errors = errors;
-        this.error = true;
+        this.loading = false;
+        this.redirect = false;
+      })
+  }
+
+  @action
+  newContact = () => {
+    this.contact = {name:{}};
+  }
+
+  @action
+  fetchContact = (_id) => {
+    this.loading = true;
+    this.contactService.get(_id)
+      .then(response => {
+        this.contact = response;
+        this.loading = false;
+        this.errors = {}
+      })
+      .catch(err => {
+        const json = JSON.stringify(err);
+        console.log(json)
+        this.errors = {global: "Something went wrong"}
+        this.loading = false;
+      })
+  }
+
+  @action
+  updateContact = (contact) => {
+    this.loading = true;
+    this.contactService.update(contact._id, contact)
+      .then(response => {
+        this.contacts = this.contacts.map(item => item._id === contact._id ? contact : item);
+        this.loading = false;
+        this.redirect = true;
+        this.errors = {};
+      })
+      .catch(err => {
+        const json = JSON.stringify(err);
+        const feathersErrors = JSON.parse(json).errors;
+        const errors = Object.assign({}, decodeFeathersErrors(feathersErrors));
+        this.errors = errors;
         this.loading = false;
         this.redirect = false;
       })

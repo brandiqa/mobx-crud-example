@@ -1,7 +1,6 @@
 import MobxReactForm from 'mobx-react-form';
 import store from '../stores/contact-store';
 
-
 export const fields = {
   name:{
     name: 'name',
@@ -36,7 +35,12 @@ export const fields = {
 class ContactForm extends MobxReactForm {
 
   onSuccess(form) {
-    store.saveContact(form.values());
+    const contact = Object.assign({}, store.contact, form.values());
+    if(contact._id) {
+      store.updateContact(contact)
+    } else {
+      store.saveContact(contact);
+    }
   }
 
   onError(form) {

@@ -7,6 +7,12 @@ import InputField from './input-field';
 @observer
 class ContactForm  extends React.Component {
 
+  componentWillReceiveProps = (nextProps) => {
+    const {contact} = nextProps.store;
+    const { form } = this.props;
+    form.update(contact)
+  }
+
   render() {
     const { form } = this.props;
     const { redirect, loading, errors } = this.props.store
