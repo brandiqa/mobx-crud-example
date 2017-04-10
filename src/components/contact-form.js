@@ -75,7 +75,7 @@ class ContactForm extends React.Component {
 
     const errorMessage = (
       <Message icon negative>
-        <Icon name='wait' />
+        <Icon name='warning' />
         <Message.Content>
            <Message.Header>Something went wrong!</Message.Header>
            {errors.global}
