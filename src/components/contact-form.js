@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import MobxReactForm from 'mobx-react-form';
 import MobxReactFormDevTools from 'mobx-react-form-devtools';
 import validatorjs from 'validatorjs';
-import { Form, Button, Grid } from 'semantic-ui-react';
+import { Icon, Form, Button, Grid, Message } from 'semantic-ui-react';
 import { Redirect } from 'react-router';
 import InputField from './input-field';
 import store from '../stores/contact-store';
@@ -73,6 +73,16 @@ class ContactForm extends React.Component {
     const form = this.form;
     const { redirect, loading, errors, contact } = store;
 
+    const errorMessage = (
+      <Message icon negative>
+        <Icon name='wait' />
+        <Message.Content>
+           <Message.Header>Something went wrong!</Message.Header>
+           {errors.global}
+       </Message.Content>
+      </Message>
+    );
+
     const formComponent = (
       <Form onSubmit={form.onSubmit} loading={loading}>
         <Form.Group widths='equal'>
@@ -91,6 +101,7 @@ class ContactForm extends React.Component {
         <Grid centered columns={2}>
           <Grid.Column>
             <h1 style={{marginTop:"1em"}}>{ contact._id ? 'Edit Contact' : 'Add New Contact' }</h1>
+            {errors.global && errorMessage }
             {formComponent}
           </Grid.Column>
         </Grid>

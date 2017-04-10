@@ -72,9 +72,7 @@ class ContactStore {
         this.errors = {}
       })
       .catch(err => {
-        const json = JSON.stringify(err);
-        console.log(json)
-        this.errors = {global: "Something went wrong"}
+        this.errors = {global: err.message}
         this.loading = false;
       })
   }
