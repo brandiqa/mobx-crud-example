@@ -26,7 +26,7 @@ Start the backend server first:
 
 ```bash
 cd mobx-crud-example/backend
-npm start
+yarn start
 ```
 This will run the backend server at localhost:3030. If all is working well, you should be able to access the url http://localhost:3030/contacts from your Browser or Postman
 
@@ -35,8 +35,8 @@ This will run the backend server at localhost:3030. If all is working well, you 
 Open a separate terminal to start the client:
 
 ```bash
-cd react-contact-manager
-npm start
+cd mobx-crud-example
+yarn start
 ```
 
 Your default web browser will be launched automatically with the url http://localhost:3000
