@@ -1,4 +1,5 @@
 import { observable, action } from 'mobx';
+import remotedev from 'mobx-remotedev';
 import { service } from './client';
 
 const decodeFeathersErrors = (data) => {
@@ -108,4 +109,5 @@ class ContactStore {
   }
 }
 
-export default new ContactStore()
+//export default new ContactStore()
+export default remotedev( new ContactStore(), { global:true})
