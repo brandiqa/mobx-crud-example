@@ -2,25 +2,20 @@ import React, { Component } from 'react';
 import { Message, Icon, Card } from 'semantic-ui-react';
 import { observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
-import createStore from '../stores/store';
 import ContactCard from './contact-card';
+import stores from '../stores';
+
+const store =  stores.contacts;
 
 @observer
 class ContactList extends Component {
 
-  store = null;
-
-  constructor(props) {
-    super(props);
-    this.store = createStore('api/contacts');
-  }
-
   componentDidMount() {
-    this.store.fetchAll();
+    store.fetchAll();
   }
 
   render() {
-    const { entities:contacts, loading, errors, deleteOne } = this.store;
+    const { entities:contacts, loading, errors, deleteOne } = store;
     const messages = errors.messages ? errors.messages.toJS() : [];
 
     const errorMessages = (

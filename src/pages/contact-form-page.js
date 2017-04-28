@@ -3,9 +3,9 @@ import { observer } from 'mobx-react';
 import MobxReactForm from 'mobx-react-form';
 import validatorjs from 'validatorjs';
 import ContactForm from '../components/contact-form'
-import createStore from '../stores/store';
+import stores from '../stores';
 
-const store = createStore('api/contacts');
+const store =  stores.contacts;
 
 const fields = {
   name:{
