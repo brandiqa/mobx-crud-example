@@ -13,7 +13,7 @@ const decodeFeathersErrors = (data) => {
 
 class ContactStore {
 
-  contactService = service('contacts')
+  contactService = service('api/contacts')
 
   @observable contacts = [];
   @observable contact = {name:{}};
