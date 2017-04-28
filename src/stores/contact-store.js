@@ -1,5 +1,5 @@
 import { observable, action } from 'mobx';
-import { service } from '../client';
+import { service } from './client';
 
 const decodeFeathersErrors = (data) => {
   const { "name.first":first, "name.last":last, phone, email } = data;
