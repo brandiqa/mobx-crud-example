@@ -73,8 +73,9 @@ class Store {
 
   @action
   fetch = (_id) => {
+    this.entity = {};
     this.loading = true;
-    this.errors = {}
+    this.errors = {};
     this.service.get(_id)
       .then(response => this.entity = response)
       .catch(err => this.handleFeathersError(err))
