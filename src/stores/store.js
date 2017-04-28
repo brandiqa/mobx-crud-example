@@ -127,21 +127,6 @@ class Store {
         this.entities = this.entities.filter(item => item._id !== entity._id)
     }
   }
-
 }
 
-let stores = [];
-
-export default function createStore(serviceName) {
-  let instance = false;
-  _.each(stores, store => instance  = store.serviceName === serviceName ? store : false)
-  if(!instance) {
-    instance =  new Store(serviceName);
-    stores.push(instance);
-  }
-  return instance;
-}
-
-export function destroy() {
-  stores = [];
-}
+export default Store;
