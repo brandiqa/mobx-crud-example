@@ -23,8 +23,3 @@ export default function ContactCard({contact, deleteContact}) {
     </Card>
   )
 }
-
-ContactCard.propTypes = {
-  contact: React.PropTypes.object.isRequired,
-  // deleteContact: React.PropTypes.func.isRequired
-}

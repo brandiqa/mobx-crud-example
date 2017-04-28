@@ -1,7 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import MobxReactForm from 'mobx-react-form';
-import MobxReactFormDevTools from 'mobx-react-form-devtools';
 import validatorjs from 'validatorjs';
 import { Icon, Form, Button, Grid, Message } from 'semantic-ui-react';
 import { Redirect } from 'react-router';
@@ -58,10 +57,6 @@ class ContactForm extends React.Component {
   componentWillMount() {
     const plugins = { dvr: validatorjs };
     this.form = new MobxForm({fields},{plugins});
-    MobxReactFormDevTools.register({
-      contactForm: this.form
-    });
-    MobxReactFormDevTools.select('contactForm');
   }
 
   componentWillReceiveProps = (nextProps) => {
@@ -97,7 +92,6 @@ class ContactForm extends React.Component {
 
     const grid = (
       <div>
-        <MobxReactFormDevTools.UI />
         <Grid centered columns={2}>
           <Grid.Column>
             <h1 style={{marginTop:"1em"}}>{ contact._id ? 'Edit Contact' : 'Add New Contact' }</h1>
