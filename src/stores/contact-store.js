@@ -12,6 +12,7 @@ const decodeFeathersErrors = (data) => {
   }
 }
 
+// Depracated in favor of store.js
 class ContactStore {
 
   contactService = service('api/contacts')
@@ -110,4 +111,4 @@ class ContactStore {
 }
 
 //export default new ContactStore()
-export default remotedev( new ContactStore(), { global:true})
+export default remotedev( new ContactStore(), { global:true});

@@ -6,7 +6,7 @@ import io from 'socket.io-client';
 let instance = false;
 const uri = 'http://localhost:3030/';
 
-export function client() {
+export function feathersClient() {
   if (instance) return instance;
 
   instance = feathers()
@@ -17,5 +17,5 @@ export function client() {
 }
 
 export function service(name) {
-  return client().service(name);
+  return feathersClient().service(name);
 }

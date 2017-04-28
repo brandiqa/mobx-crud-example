@@ -2,24 +2,35 @@ import React, { Component } from 'react';
 import { Message, Icon, Card } from 'semantic-ui-react';
 import { observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
+import createStore from '../stores/store';
 import ContactCard from './contact-card';
 
 @observer
 class ContactList extends Component {
 
-  componentDidMount() {
-    this.props.store.fetchContacts()
+  store = null;
+
+  constructor(props) {
+    super(props);
+    this.store = createStore('api/contacts');
   }
 
+  componentDidMount() {
+    this.store.fetchAll();
+  }
 
   render() {
+    const { entities:contacts, loading, errors, deleteOne } = this.store;
+    const messages = errors.messages ? errors.messages.toJS() : [];
 
-    const { contacts, loading, errors, deleteContact } = this.props.store;
+    const errorMessages = (
+      <Message negative header={errors.global} list={messages.reverse()}/>
+    )
 
     const cards = () => {
       return contacts.map((contact) => {
         return (
-          <ContactCard key={contact._id} contact={contact} deleteContact={deleteContact}/>
+          <ContactCard key={contact._id} contact={contact} deleteContact={deleteOne}/>
         )
       });
     }
@@ -45,16 +56,6 @@ class ContactList extends Component {
       </Message>
     )
 
-    const timeoutMessage = (
-      <Message icon negative>
-        <Icon name='wait' />
-        <Message.Content>
-           <Message.Header>Server Timeout</Message.Header>
-           {errors.global}
-       </Message.Content>
-      </Message>
-    )
-
     const contactCards = (
       <Card.Group>
         {cards()}
@@ -65,8 +66,8 @@ class ContactList extends Component {
       <div>
         { loading && fetchingMessage }
         { contacts.length === 0 && !loading  && !errors.global && emptyMessage }
-        { errors.global && timeoutMessage }
-        { contacts.length > 0 && contactCards }
+        { errors.global && errorMessages}
+        { contactCards }
       </div>
     )
   }

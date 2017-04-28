@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import ContactList from '../components/contact-list';
-import store from '../stores/contact-store';
 
 class ContactListPage extends Component {
   render() {
     return (
       <div>
         <h1>List of Contacts</h1>
-        <ContactList store={store}/>
+        <ContactList />
       </div>
     )
   }
