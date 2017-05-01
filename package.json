@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
+    "concurrently": "^3.4.0",
     "feathers": "^2.1.1",
     "feathers-hooks": "^2.0.1",
     "feathers-socketio": "^1.6.0",
@@ -31,7 +32,7 @@
     "custom-react-scripts": "0.0.23"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently --prefix \"[{name}]\" --names \"backend,client\" \"cd backend && nodemon src/\" \"react-scripts start\"",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
