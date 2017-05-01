@@ -38,22 +38,11 @@ REACT_APP_DECORATORS=true
 Ensure you have mongodb installed in your system and that it is running. By default, this project uses `mongodb://localhost:27017/api` to access the database. You can change that in `mobx-crud-example\backend\config\default.json`.
 
 
-### Start the backend server
-Start the backend server first:
+### Start the app
+This app is setup to run the backend and the client server concurrently. Just do:
 
 ```bash
-cd mobx-crud-example/backend
-yarn start
-```
-This will run the backend server at localhost:3030. If all is working well, you should be able to access the url http://localhost:3030/api/contacts from your Browser or Postman
-
-
-### Start the client
-Open a separate terminal to start the client:
-
-```bash
-cd mobx-crud-example
 yarn start
 ```
 
-Once the startup process is completed, your browser should automatically launch with the url [http://localhost:3000](http://localhost:3000).
+Both backend server and client server will start concurrently. You can access the backend API server using a browser or REST client app like Postman using the url http://localhost:3030/api/contacts. To access the client front-end, you'll need to open your browser (chrome recommended) using the url [http://localhost:3000](http://localhost:3000).
