@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 import MobxReactForm from 'mobx-react-form';
 import validatorjs from 'validatorjs';
-import ContactForm from '../components/contact-form'
-import stores from '../stores';
-
-const store =  stores.contacts;
+import ContactForm from '../components/contact-form';
 
 const fields = {
   name:{
@@ -39,7 +36,16 @@ const fields = {
 };
 
 class Form extends MobxReactForm {
+
+  store = null;
+
+  constructor(fields, plugins, store) {
+    super(fields,plugins);
+    this.store = store;
+  }
+
   onSuccess(form) {
+    const store = this.store;
     if(store.entity._id){
       store.update(store.entity._id, form.values())
     }
@@ -49,19 +55,21 @@ class Form extends MobxReactForm {
   }
 }
 
-@observer
+@inject("stores") @observer
 class ContactFormPage extends Component {
 
   form = null;
 
   constructor(props){
     super(props)
+    const { contactStore:store } = this.props.stores;
     const plugins = { dvr: validatorjs };
-    this.form = new Form({fields},{plugins});
+    this.form = new Form({fields},{plugins},store);
   }
 
   componentDidMount() {
     const { _id } = this.props.match.params;
+    const { contactStore:store } = this.props.stores;
     if(_id){
       store.fetch(_id)
     } else {
@@ -70,6 +78,7 @@ class ContactFormPage extends Component {
   }
 
   render() {
+    const { contactStore:store } = this.props.stores;
     return (
       <div>
         <ContactForm store={store} form={this.form} contact={store.entity}/>

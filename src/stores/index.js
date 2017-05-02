@@ -1,9 +1,9 @@
 import Store from './store';
 
-const contacts = new Store('api/contacts');
+const contactStore = new Store('api/contacts');
 
-const stores = {
-  contacts
+const allStores = {
+  contactStore
 };
 
-export default stores;
+export default allStores;
