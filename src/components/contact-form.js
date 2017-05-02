@@ -2,7 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { Form, Button, Grid, Message } from 'semantic-ui-react';
 import { Redirect } from 'react-router';
-import InputField from './input-field';
+import InputField from '../forms/input-field';
 
 @observer
 class ContactForm extends React.Component {
