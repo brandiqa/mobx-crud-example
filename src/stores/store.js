@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx';
+import { observable, action, runInAction } from 'mobx';
 import _ from 'lodash';
 import { feathersClient } from './client';
 
@@ -6,6 +6,7 @@ class Store {
 
   service = null;
   serviceName = null;
+
   @observable errors = {};
   @observable entity = {};
   @observable entities = [];
@@ -27,7 +28,13 @@ class Store {
     });
   }
 
-  handleFeathersError = (err) => {
+  startAsync = () => {
+    this.loading = true;
+    this.errors = {};
+  }
+
+  @action
+  handleErrors = (err) => {
     if( err.code === 400) {
       let messages = [];
       _.each(err.errors, (value, key) => {
@@ -37,32 +44,43 @@ class Store {
     } else {
       this.errors = {global: err.message}
     }
+    this.loading = false;
   }
 
   @action
-  fetchAll = () => {
-    this.loading = true;
-    this.errors = {};
-    this.service.find({})
-      .then(response => this.entities = response.data )
-      .catch(err => this.handleFeathersError(err))
-      .then(() => this.loading = false);
+  resetRedirect() {
+    this.redirect = false;
   }
 
   @action
-  create = (entity) => {
-    this.loading = true;
-    this.errors = {};
-    this.service.create(entity)
-      .then(response => {
-        this.entities.push(response)
-        this.redirect = true;
-      })
-      .catch(err => this.handleFeathersError(err))
-      .then(() => {
+  fetchAll = async() => {
+    this.startAsync();
+    try{
+      const response = await this.service.find({})
+      runInAction('populate entities', () => {
+        this.entities = response.data;
         this.loading = false;
-        this.redirect = false;
-      })
+      });
+    } catch(err) {
+        this.handleErrors(err);
+    }
+  }
+
+  @action
+  create = async(entity) => {
+    this.startAsync();
+    try{
+      const response = await this.service.create(entity);
+      runInAction('entity created', () => {
+        this.entities.push(response);
+        this.redirect = true;
+        this.loading = false;
+      });
+    } catch(err) {
+        this.handleErrors(err);
+    } finally {
+      this.resetRedirect();
+    }
   }
 
   @action
@@ -72,39 +90,47 @@ class Store {
   }
 
   @action
-  fetch = (_id) => {
-    this.entity = {};
-    this.loading = true;
-    this.errors = {};
-    this.service.get(_id)
-      .then(response => this.entity = response)
-      .catch(err => this.handleFeathersError(err))
-      .then(() => this.loading = false)
-  }
-
-  @action
-  update = (_id, entity) => {
-    this.loading = true;
-    this.errors = {};
-    this.service.patch(_id, entity)
-      .then(response => {
-        this.entities = this.entities.map(item => item._id === entity._id ? entity : item);
-        this.redirect = true;
-      })
-      .catch(err => this.handleFeathersError(err))
-      .then(() => {
+  fetch = async(_id) => {
+    this.startAsync();
+    try {
+      const response = await this.service.get(_id)
+      runInAction('entity fetched', () => {
+        this.entity = response;
         this.loading = false;
-        this.redirect = false;
       })
+    } catch(err) {
+      this.handleErrors(err)
+    }
   }
 
   @action
-  deleteOne = (_id) => {
-    this.service.remove(_id)
-      .then(response => {
+  update = async(_id, entity) => {
+    this.startAsync();
+    try{
+      const response = await this.service.patch(_id, entity);
+      runInAction('entity updated', () => {
+        this.entities = this.entities.map(item => item._id === response._id ? response : item);
+        this.redirect = true;
+        this.loading = false;
+      })
+    } catch(err) {
+      this.handleErrors(err)
+    } finally {
+      this.redirect = false;
+    }
+  }
+
+  @action
+  deleteOne = async(_id) => {
+    await this.service.remove(_id)
+    try {
+      runInAction('entity deleted', () => {
         this.entities = this.entities.filter(item => item._id !== _id)
       })
-      .catch(err => this.handleFeathersError(err))
+    }
+    catch(err) {
+      this.handleErrors(err)
+    }
   }
 
   @action

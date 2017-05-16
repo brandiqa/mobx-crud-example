@@ -6,6 +6,9 @@ import allStores from './stores';
 import App from './App';
 import 'semantic-ui-css/semantic.min.css';
 import './index.css';
+import mobx from 'mobx';
+
+mobx.useStrict(true);
 
 ReactDOM.render(
   <BrowserRouter>

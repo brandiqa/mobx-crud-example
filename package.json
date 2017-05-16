@@ -12,6 +12,7 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "concurrently": "^3.4.0",
+    "extension": "^0.2.0",
     "feathers": "^2.1.1",
     "feathers-hooks": "^2.0.1",
     "feathers-socketio": "^1.6.0",

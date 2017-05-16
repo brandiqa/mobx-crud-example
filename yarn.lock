@@ -2417,6 +2417,10 @@ extend@~3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/extend/-/extend-3.0.1.tgz#a755ea7bc1adfcc5a31ce7e762dbaadc5e636444"
 
+extension@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/extension/-/extension-0.2.0.tgz#e874c0dfc867191fd0233a15c965df02ecd227c4"
+
 extglob@^0.3.1:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/extglob/-/extglob-0.3.2.tgz#2e18ff3d2f49ab2765cec9023f011daa8d8349a1"
